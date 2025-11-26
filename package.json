@@ -1,0 +1,24 @@
+{
+  "name": "php-mvc-blog",
+  "version": "1.0.0",
+  "description": "A modern blog application with Tailwind CSS",
+  "scripts": {
+    "dev": "node ./node_modules/tailwindcss/lib/cli.js -i ./src/input.css -o ./public/css/style.css --watch",
+    "build": "node ./node_modules/tailwindcss/lib/cli.js -i ./src/input.css -o ./public/css/style.css --minify"
+  },
+  "keywords": [
+    "blog",
+    "php",
+    "mvc",
+    "tailwind"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.19"
+  }
+}

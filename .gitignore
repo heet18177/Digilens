@@ -1,0 +1,38 @@
+# Environment
+.env
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Storage
+/storage/logs/*.log
+/storage/cache/*
+!storage/cache/.gitkeep
+
+# Uploads
+/public/uploads/*
+!public/uploads/.gitkeep
+!public/uploads/avatars/.gitkeep
+!public/uploads/blog-images/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Compiled assets
+/public/css/style.css
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+

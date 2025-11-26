@@ -45,129 +45,6 @@ A modern, feature-rich blog application built with PHP following Object-Oriented
 - 🔒 XSS prevention
 - 🚀 Performance optimization (lazy loading, caching)
 
-## 🏗️ Architecture
-
-### MVC Pattern Implementation
-
-```
-┌─────────────────────────────────────────────┐
-│              Client Browser                  │
-└─────────────┬───────────────────────────────┘
-              │
-              ▼
-┌─────────────────────────────────────────────┐
-│         Router (Front Controller)           │
-│  - URL Parsing                              │
-│  - Route Matching                           │
-│  - Middleware Execution                     │
-└─────────────┬───────────────────────────────┘
-              │
-              ▼
-┌─────────────────────────────────────────────┐
-│            Controllers                       │
-│  - Handle HTTP Requests                     │
-│  - Business Logic Coordination              │
-│  - Input Validation                         │
-└─────────────┬───────────────────────────────┘
-              │
-    ┌─────────┴─────────┐
-    ▼                   ▼
-┌─────────┐         ┌─────────┐
-│ Models  │◄────────┤  Views  │
-│         │         │         │
-│ - DB    │         │ - HTML  │
-│   Logic │         │ - CSS   │
-│ - Data  │         │ - JS    │
-│   Valid.│         │         │
-└─────────┘         └─────────┘
-```
-
-### Directory Structure
-
-```
-Blog/
-├── app/
-│   ├── Controllers/          # Application controllers
-│   │   ├── AuthController.php
-│   │   ├── BlogController.php
-│   │   ├── CommentController.php
-│   │   └── UserController.php
-│   ├── Models/               # Data models
-│   │   ├── User.php
-│   │   ├── Blog.php
-│   │   ├── Comment.php
-│   │   ├── Like.php
-│   │   └── Vote.php
-│   ├── Views/                # View templates
-│   │   ├── layouts/
-│   │   │   ├── header.php
-│   │   │   ├── footer.php
-│   │   │   └── navbar.php
-│   │   ├── auth/
-│   │   │   ├── login.php
-│   │   │   └── register.php
-│   │   ├── blog/
-│   │   │   ├── index.php
-│   │   │   ├── show.php
-│   │   │   ├── create.php
-│   │   │   └── edit.php
-│   │   └── user/
-│   │       ├── profile.php
-│   │       └── dashboard.php
-│   └── Middleware/           # Middleware classes
-│       ├── AuthMiddleware.php
-│       └── CsrfMiddleware.php
-├── core/                     # Core framework classes
-│   ├── Application.php       # Application bootstrap
-│   ├── Router.php           # Routing system
-│   ├── Controller.php       # Base controller
-│   ├── Model.php            # Base model
-│   ├── Database.php         # Database connection
-│   ├── Request.php          # HTTP request handler
-│   ├── Response.php         # HTTP response handler
-│   ├── Session.php          # Session management
-│   ├── Validation.php       # Input validation
-│   └── View.php             # View renderer
-├── public/                   # Public directory (document root)
-│   ├── index.php            # Entry point
-│   ├── css/
-│   │   └── style.css        # Compiled Tailwind CSS
-│   ├── js/
-│   │   ├── app.js
-│   │   └── editor.js
-│   ├── images/              # Static images
-│   └── uploads/             # User uploaded files
-│       ├── avatars/
-│       └── blog-images/
-├── config/                   # Configuration files
-│   ├── database.php
-│   ├── app.php
-│   └── routes.php
-├── database/
-│   ├── migrations/          # Database migrations
-│   │   ├── 001_create_users_table.sql
-│   │   ├── 002_create_blogs_table.sql
-│   │   ├── 003_create_comments_table.sql
-│   │   ├── 004_create_likes_table.sql
-│   │   └── 005_create_votes_table.sql
-│   └── seeds/               # Database seeders
-│       └── sample_data.sql
-├── helpers/                  # Helper functions
-│   ├── functions.php
-│   └── sanitize.php
-├── storage/
-│   ├── logs/                # Application logs
-│   └── cache/               # Cache files
-├── .env                      # Environment variables
-├── .env.example             # Example environment file
-├── .gitignore
-├── .htaccess                # Apache configuration
-├── composer.json            # PHP dependencies
-├── package.json             # Node.js dependencies
-├── tailwind.config.js       # Tailwind configuration
-└── README.md
-```
-
 ## 🔧 Technology Stack
 
 ### Backend
@@ -456,139 +333,6 @@ Visit `http://localhost:8000` in your browser.
    - Share posts
    - Bookmark for later
 
-### For Developers
-
-#### Creating a New Controller
-```php
-<?php
-
-namespace App\Controllers;
-
-use Core\Controller;
-
-class MyController extends Controller
-{
-    public function index()
-    {
-        $data = [
-            'title' => 'My Page',
-            'items' => []
-        ];
-        
-        return $this->view('my/index', $data);
-    }
-}
-```
-
-#### Creating a New Model
-```php
-<?php
-
-namespace App\Models;
-
-use Core\Model;
-
-class MyModel extends Model
-{
-    protected $table = 'my_table';
-    protected $fillable = ['column1', 'column2'];
-    
-    public function customMethod()
-    {
-        // Custom logic
-    }
-}
-```
-
-#### Adding a Route
-```php
-// config/routes.php
-$router->get('/my-route', 'MyController@index');
-$router->post('/my-route', 'MyController@store');
-```
-
-## 🎨 Design Patterns Used
-
-1. **MVC Pattern** - Separation of concerns
-2. **Singleton Pattern** - Database connection
-3. **Factory Pattern** - Object creation
-4. **Repository Pattern** - Data access layer
-5. **Middleware Pattern** - Request filtering
-6. **Observer Pattern** - Event handling
-7. **Dependency Injection** - Loose coupling
-
-## 🔄 API Endpoints
-
-### Authentication
-- `POST /register` - User registration
-- `POST /login` - User login
-- `POST /logout` - User logout
-
-### Blogs
-- `GET /blogs` - List all blogs
-- `GET /blog/{slug}` - View single blog
-- `POST /blog/create` - Create new blog
-- `PUT /blog/{id}` - Update blog
-- `DELETE /blog/{id}` - Delete blog
-
-### Social Interactions
-- `POST /blog/{id}/vote` - Upvote/Downvote
-- `POST /blog/{id}/like` - Like/Unlike
-- `POST /blog/{id}/comment` - Add comment
-- `POST /blog/{id}/bookmark` - Bookmark post
-
-## 📈 Performance Optimization
-
-1. **Database Optimization**
-   - Proper indexing on frequently queried columns
-   - Query optimization with EXPLAIN
-   - Pagination for large datasets
-   - Eager loading to prevent N+1 queries
-
-2. **Caching Strategy**
-   - Page caching for static content
-   - Query result caching
-   - Redis/Memcached integration (optional)
-
-3. **Frontend Optimization**
-   - Lazy loading images
-   - Minified CSS/JS
-   - CDN for static assets
-   - Browser caching headers
-
-4. **Code Optimization**
-   - Autoloading with Composer (PSR-4)
-   - Opcode caching (OPcache)
-   - Reduced database queries
-   - Efficient algorithms
-
-## 🧪 Testing
-
-### Manual Testing Checklist
-- [ ] User registration works correctly
-- [ ] Login/logout functionality
-- [ ] Blog CRUD operations
-- [ ] Image upload validation
-- [ ] Comment system
-- [ ] Vote system accuracy
-- [ ] Like functionality
-- [ ] Search functionality
-- [ ] Responsive design on mobile
-- [ ] Security measures (XSS, CSRF, SQL injection)
-
-### Automated Testing (Future Implementation)
-- PHPUnit for unit testing
-- Selenium for browser testing
-- API testing with Postman
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## 📝 Coding Standards
 
 - Follow PSR-12 coding standards
@@ -622,8 +366,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 👨‍💻 Author
 
 **Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+- GitHub: [@heet18177](https://github.com/heet18177)
 
 ## 🙏 Acknowledgments
 
@@ -634,34 +377,15 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📚 Resources & References
 
-### PHP MVC Architecture
-- [PHP The Right Way](https://phptherightway.com/)
-- [PSR Standards](https://www.php-fig.org/psr/)
-- [SOLID Principles in PHP](https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
-
-### Security
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- [PHP Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/PHP_Configuration_Cheat_Sheet.html)
-
-### Design Patterns
-- [Design Patterns in PHP](https://refactoring.guru/design-patterns/php)
-- [PHP Design Patterns](https://designpatternsphp.readthedocs.io/)
-
-### Tailwind CSS
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [Tailwind UI Components](https://tailwindui.com/)
-
 ---
 
 ## 🚦 Project Status
 
 **Status:** Active Development 🟢
 
-Last Updated: October 2025
 
----
 
-**Happy Coding! 🚀**
 
-#   D i g i l e n s  
+#   D i g i l e n s 
+ 
  
